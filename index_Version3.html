@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Measurement Tool with Perspective Correction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Image Measurement Tool</h1>
+            <p>Measure objects with perspective correction and calibration support</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-panel">
+                <div class="section">
+                    <h3>1. Upload Image</h3>
+                    <input type="file" id="imageUpload" accept="image/*">
+                    <p class="helper-text">Upload a JPG, PNG, or other image format</p>
+                </div>
+
+                <div class="section">
+                    <h3>2. Perspective Correction</h3>
+                    <div class="perspective-group">
+                        <label>
+                            <input type="checkbox" id="perspectiveMode"> Enable Perspective Correction
+                        </label>
+                        <div id="perspectiveInputs" class="hidden">
+                            <p class="helper-text">Click 4 corners of your reference surface</p>
+                            <div class="input-row">
+                                <label for="perspectiveWidth">Width (pixels):</label>
+                                <input type="number" id="perspectiveWidth" placeholder="e.g., 800" step="1" min="100">
+                            </div>
+                            <div class="input-row">
+                                <label for="perspectiveHeight">Height (pixels):</label>
+                                <input type="number" id="perspectiveHeight" placeholder="e.g., 600" step="1" min="100">
+                            </div>
+                            <button id="perspectiveBtn" class="btn-primary" disabled>Set Perspective (Click 4 Points)</button>
+                            <div id="perspectiveStatus" class="status"></div>
+                            <button id="removePerspectiveBtn" class="btn-secondary hidden">Remove Perspective</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>3. Calibration Setup</h3>
+                    <div class="calibration-group">
+                        <label>
+                            <input type="checkbox" id="calibrationMode"> Enable Calibration Mode
+                        </label>
+                        <div id="calibrationInputs" class="hidden">
+                            <p class="helper-text">Click two points on a known-size reference object</p>
+                            <div class="input-row">
+                                <label for="referenceLength">Reference Length:</label>
+                                <input type="number" id="referenceLength" placeholder="e.g., 100" step="0.1">
+                            </div>
+                            <div class="input-row">
+                                <label for="referenceUnit">Unit:</label>
+                                <select id="referenceUnit">
+                                    <option value="mm">Millimeters (mm)</option>
+                                    <option value="cm">Centimeters (cm)</option>
+                                    <option value="inch">Inches (in)</option>
+                                    <option value="m">Meters (m)</option>
+                                </select>
+                            </div>
+                            <button id="calibrateBtn" class="btn-primary" disabled>Calibrate (Click 2 Points)</button>
+                            <div id="calibrationStatus" class="status"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>4. Measure Objects</h3>
+                    <div class="measurement-group">
+                        <p class="helper-text">Click points on the object to measure</p>
+                        <div class="input-row">
+                            <label for="measurementUnit">Display Unit:</label>
+                            <select id="measurementUnit">
+                                <option value="pixels">Pixels</option>
+                                <option value="mm">Millimeters (mm)</option>
+                                <option value="cm">Centimeters (cm)</option>
+                                <option value="inch">Inches (in)</option>
+                                <option value="m">Meters (m)</option>
+                            </select>
+                        </div>
+                        <button id="startMeasureBtn" class="btn-primary" disabled>Start Measurement</button>
+                        <button id="clearMeasureBtn" class="btn-secondary" disabled>Clear Last Measurement</button>
+                        <button id="resetAllBtn" class="btn-secondary" disabled>Reset All</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Measurements</h3>
+                    <div id="measurementsList" class="measurements-list">
+                        <p class="placeholder">No measurements yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-container">
+                <div id="canvasWrapper" class="canvas-wrapper hidden">
+                    <canvas id="canvas"></canvas>
+                    <div id="tooltip" class="tooltip hidden"></div>
+                </div>
+                <div id="noImagePlaceholder" class="placeholder-text">
+                    <p>👆 Upload an image to get started</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="perspective.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
